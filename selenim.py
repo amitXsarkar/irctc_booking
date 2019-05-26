@@ -1,4 +1,5 @@
 import time
+import gettext
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
@@ -36,15 +37,36 @@ time.sleep(5)
 # browser.execute_script("arguments[0].style.visibility='hidden'", element)
 
 time.sleep(2)
+
+# status = browser.find_element_by_xpath('//a[@id="T_12453"]/../../../../div[3]/div[2]/div/span[@class="waitingstatus"].getText()')
+# print(status)
 found = browser.find_element_by_xpath('//a[@id="T_12453"]/../../../../div[3]/div[2]/div/div/button')
 # found = browser.find_elements_by_xpath('//button[@id="check-availability"]')[0]
 found.send_keys(Keys.RETURN)
 
 
-time.sleep(2)
-book_now = browser.find_element_by_xpath('//button[@class="b1"]')
+
+time.sleep(10)
+book_now = browser.find_elements_by_xpath('//button[@class="b1"]')[0]
+book_now_text = book_now.get_attribute("aria-label")
+book_list = book_now_text.split()
+book_now.send_keys(Keys.RETURN)
+time.sleep(6)
+def check(word, book_list):
+    if word in book_list:
+        book_now.send_keys(Keys.RETURN)
+
+check('RAC',book_list)
+time.sleep(5)
+book_now.send_keys('rameleswar')
 # book_now.send_keys(Keys.RETURN)
-print(len(book_now))
+# book_now.send_keys('nsso(fod)')
+# book_now.send_keys(Keys.RETURN)
+
+
+
+# book_now.send_keys(Keys.RETURN)
+# print(len(book_now))
 
 
   
